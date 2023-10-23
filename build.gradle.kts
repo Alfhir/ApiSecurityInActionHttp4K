@@ -10,6 +10,15 @@ repositories {
     mavenCentral()
 }
 
+flyway {
+    driver = "org.postgresql.Driver"
+    url = "jdbc:postgresql://localhost:5432/demo"
+    user = "postgres"
+    password = "postgres"
+    locations = arrayOf("filesystem:./src/main/resources/db/migration")
+    placeholders = mapOf("schema_name" to "demo")
+}
+
 dependencies {
     implementation(platform("org.http4k:http4k-bom:5.8.5.1"))
     implementation("org.http4k:http4k-cloudnative")
