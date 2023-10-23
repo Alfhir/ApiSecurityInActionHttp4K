@@ -16,6 +16,9 @@ dependencies {
     implementation("org.http4k:http4k-contract")
     implementation("org.http4k:http4k-core")
     implementation("org.http4k:http4k-format-jackson")
+
+    implementation("org.flywaydb:flyway-core:9.22.3")
+
     testImplementation(kotlin("test"))
 }
 
