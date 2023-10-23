@@ -1,6 +1,7 @@
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method
 import org.http4k.core.Request
+import org.http4k.core.Response
 
 class DungeonGeneratorAPIClient(
     private val httpHandler: HttpHandler
@@ -11,12 +12,7 @@ class DungeonGeneratorAPIClient(
      * 	application/json
      * 		200 Successful response
      */
-    fun get_rooms() {
-        val httpReq = Request(Method.GET, "/rooms")
-        val response = httpHandler(httpReq)
-
-        response
-    }
+    fun get_rooms() = httpHandler(Request(Method.GET, "/rooms"))
 
     /**
      * Create a new room
@@ -24,12 +20,7 @@ class DungeonGeneratorAPIClient(
      * 	application/json
      * 		201 Room created successfully
      */
-    fun post_rooms() {
-        val httpReq = Request(Method.POST, "/rooms")
-        val response = httpHandler(httpReq)
-
-        response
-    }
+    fun post_rooms() = httpHandler(Request(Method.POST, "/rooms"))
 
     /**
      * Get a list of monsters
@@ -37,12 +28,8 @@ class DungeonGeneratorAPIClient(
      * 	application/json
      * 		200 Successful response
      */
-    fun get_monsters() {
-        val httpReq = Request(Method.GET, "/monsters")
-        val response = httpHandler(httpReq)
+    fun get_monsters() = httpHandler(Request(Method.GET, "/monsters"))
 
-        response
-    }
 
     /**
      * Create a new monster
@@ -50,12 +37,7 @@ class DungeonGeneratorAPIClient(
      * 	application/json
      * 		201 Monster created successfully
      */
-    fun post_monsters() {
-        val httpReq = Request(Method.POST, "/monsters")
-        val response = httpHandler(httpReq)
-
-        response
-    }
+    fun post_monsters() = httpHandler(Request(Method.POST, "/monsters"))
 
     /**
      * Create a relationship between a room and a monster
@@ -63,10 +45,5 @@ class DungeonGeneratorAPIClient(
      * 	application/json
      * 		201 Relationship created successfully
      */
-    fun post_roommonsters() {
-        val httpReq = Request(Method.POST, "/room-monsters")
-        val response = httpHandler(httpReq)
-
-        response
-    }
+    fun post_roommonsters() = httpHandler(Request(Method.POST, "/room-monsters"))
 }
