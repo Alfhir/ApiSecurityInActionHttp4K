@@ -9,18 +9,11 @@ import org.http4k.core.*
 import org.http4k.core.ContentType.Companion.APPLICATION_JSON
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
+import org.http4k.core.Status.Companion.CREATED
 import org.http4k.core.Status.Companion.OK
 import org.http4k.lens.ContentNegotiation
-import org.http4k.lens.string
-
-data class Room(
-    val dimensions: Triple<Int, Int, Int>,
-    val sensoryImpression: String,
-    val initialObservations: String,
-    val findings: String,
-    val gameMasterInformation: String,
-    val monsters: List<Monster>
-)
+import org.http4k.lens.Header
+import rooms.Room
 
 val roomLens = Body.auto<Room>(
     "The room data.", ContentNegotiation.Strict, APPLICATION_JSON
@@ -41,30 +34,26 @@ fun getAllRooms(): ContractRoute = "/rooms/" meta {
     description = "This is an unsecured route to get all rooms."
     summary = "Gets all rooms."
     security = NoSecurity
+    produces += APPLICATION_JSON
+    returning(OK, roomLens to fakeRoom)
 } bindContract GET to ::getRoomsHandler
 
 fun getRoomsHandler(): HttpHandler = {
-    val jsonResponse = """
-    {
-        "data": "Deep in the mines of moria..."        
-    }
-    """.trimIndent()
-    val bodyLens = Body.string(APPLICATION_JSON).toLens()
-    Response(OK).with(bodyLens of jsonResponse)
+    Response(OK).with(roomLens of fakeRoom)
 }
 
 fun createRoom(): ContractRoute {
-
     val spec = "/rooms" meta {
         description = "This is an unsecured route to create a room."
         summary = "Creates a room."
+        security = NoSecurity
+        consumes += APPLICATION_JSON
         receiving(roomLens to fakeRoom)
-        returning(OK, roomLens to fakeRoom)
+        returning(CREATED)
     } bindContract POST
 
-    val createRoomHandler: HttpHandler = { request: Request ->
-        val received: Room = roomLens(request)
-        Response(OK).with(roomLens of received)
+    val createRoomHandler: HttpHandler = { _: Request ->
+        Response(CREATED).header("Location", "http://fake-url.com/fake-path/fake-id")
     }
 
     return spec to createRoomHandler

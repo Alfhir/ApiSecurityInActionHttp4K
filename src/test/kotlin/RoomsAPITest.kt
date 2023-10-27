@@ -12,6 +12,7 @@ import org.http4k.hamkrest.hasBody
 import org.http4k.hamkrest.hasContentType
 import org.http4k.hamkrest.hasStatus
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import rooms.RoomsApi
 import rooms.endpoints.fakeRoom
@@ -31,24 +32,22 @@ class RoomsAPITest {
 
     @Test
     fun `can get all rooms`() {
+        val response = unsecuredApp(Request(GET, "/rooms"))
+        val roomFromResponse = roomLens(response)
         assertThat(
-            unsecuredApp(Request(GET, "/rooms")),
-            allOf(
-                hasStatus(Status.OK),
-                hasContentType(APPLICATION_JSON),
-                hasBody(containsSubstring("""Deep in the mines of moria..."""))
-            )
+            response,
+            hasStatus(Status.OK).and(hasContentType(APPLICATION_JSON))
         )
+        assertEquals(roomFromResponse, fakeRoom)
     }
 
     @Test
     fun `can create rooms`() {
         val request = Request(POST, "/rooms").with(roomLens of fakeRoom)
         val response = unsecuredApp(request)
-        val roomFromResponse = roomLens(response)
-
-        assertThat(response, hasStatus(Status.OK).and(hasContentType(APPLICATION_JSON)))
-        assertEquals(fakeRoom, roomFromResponse)
+        val locationHeader = response.header("Location")
+        assertThat(response, hasStatus(Status.CREATED))
+        assertEquals("http://fake-url.com/fake-path/fake-id", locationHeader)
     }
 }
 
