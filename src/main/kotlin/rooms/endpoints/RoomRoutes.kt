@@ -16,7 +16,9 @@ import org.http4k.lens.ContentNegotiation
 import rooms.Room
 
 val roomLens = Body.auto<Room>(
-    "The room data.", ContentNegotiation.Strict, APPLICATION_JSON
+    description = "The room data.",
+    contentNegotiation = ContentNegotiation.Strict,
+    contentType = APPLICATION_JSON
 ).toLens()
 
 val fakeRoom = Room(
