@@ -88,23 +88,3 @@ paths:
       responses:
         '201':
           description: Monster created successfully
-
-  /room-monsters:
-    post:
-      summary: Create a relationship between a room and a monster
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                room_id:
-                  type: integer
-                monster_id:
-                  type: integer
-                reasons_for_being_here:
-                  type: string
-      responses:
-        '201':
-          description: Relationship created successfully
