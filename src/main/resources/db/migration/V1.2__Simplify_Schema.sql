@@ -1,8 +1,8 @@
 -- Drop the monster_room table if it exists (unique idx was on the wrong column anyways)
-DROP TABLE IF EXISTS monster_room;
+DROP TABLE IF EXISTS room_monster;
 
--- Drop the dungeon table if it exists
-DROP TABLE IF EXISTS dungeon;
+-- Drop the dungeon and related tables if they exist
+DROP TABLE IF EXISTS dungeon CASCADE ;
 
 -- Create the dungeon table
 CREATE TABLE IF NOT EXISTS dungeon (
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS dungeon (
 );
 
 -- Drop the room table if it exists
-DROP TABLE IF EXISTS room;
+DROP TABLE IF EXISTS room CASCADE ;
 
 -- Create the 'room' table
 CREATE TABLE IF NOT EXISTS room (
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS room (
 );
 
 -- Drop the monster table if it exists
-DROP TABLE IF EXISTS monster;
+DROP TABLE IF EXISTS monster CASCADE ;
 
 -- Create the 'monster' table
 CREATE TABLE IF NOT EXISTS monster (
