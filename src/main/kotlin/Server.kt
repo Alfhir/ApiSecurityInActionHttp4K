@@ -1,19 +1,11 @@
-import endpoints.*
-import org.http4k.core.HttpHandler
-import org.http4k.routing.routes
+import org.http4k.core.then
+import org.http4k.filter.DebuggingFilters
 import org.http4k.server.SunHttp
 import org.http4k.server.asServer
+import rooms.RoomsApi
 
-object DungeonGeneratorAPIServer {
-    operator fun invoke(): HttpHandler = routes(
-        Get_rooms()
-        ,	Post_rooms()
-        ,	Get_monsters()
-        ,	Post_monsters()
-        ,	Post_roommonsters()
-    )
-}
 
 fun main() {
-    DungeonGeneratorAPIServer().asServer(SunHttp(8000)).start()
+    val printingApp = DebuggingFilters.PrintRequest().then(RoomsApi())
+    printingApp.asServer(SunHttp(8000)).start()
 }
