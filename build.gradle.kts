@@ -26,6 +26,7 @@ dependencies {
     implementation("org.http4k:http4k-core")
     implementation("org.http4k:http4k-format-jackson")
 
+    implementation("org.postgresql:postgresql:42.6.0")
     implementation("org.flywaydb:flyway-core:9.22.3")
 
     testImplementation(kotlin("test"))
