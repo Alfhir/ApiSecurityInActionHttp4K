@@ -1,7 +1,7 @@
 # ApiSecInActionHttp4k
 
 I am reading API Security on Action by Neil Madden and I want to code along to make things stick a bit better.
-Also, I figured it would be fun doing this with Http4K.
+Also, I want to practice using Http4K.
 
 ## Roadmap
 
