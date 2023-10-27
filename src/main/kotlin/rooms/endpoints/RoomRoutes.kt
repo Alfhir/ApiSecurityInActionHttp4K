@@ -2,6 +2,7 @@ package rooms.endpoints
 
 import monsters.Monster
 import org.http4k.contract.ContractRoute
+import org.http4k.contract.Tag
 import org.http4k.contract.meta
 import org.http4k.contract.openapi.OpenAPIJackson.auto
 import org.http4k.contract.security.NoSecurity
@@ -12,7 +13,6 @@ import org.http4k.core.Method.POST
 import org.http4k.core.Status.Companion.CREATED
 import org.http4k.core.Status.Companion.OK
 import org.http4k.lens.ContentNegotiation
-import org.http4k.lens.Header
 import rooms.Room
 
 val roomLens = Body.auto<Room>(
@@ -34,6 +34,7 @@ fun getAllRooms(): ContractRoute = "/rooms/" meta {
     description = "This is an unsecured route to get all rooms."
     summary = "Gets all rooms."
     security = NoSecurity
+    tags += Tag("Room operations")
     produces += APPLICATION_JSON
     returning(OK, roomLens to fakeRoom)
 } bindContract GET to ::getRoomsHandler
@@ -47,6 +48,7 @@ fun createRoom(): ContractRoute {
         description = "This is an unsecured route to create a room."
         summary = "Creates a room."
         security = NoSecurity
+        tags += Tag("Room operations")
         consumes += APPLICATION_JSON
         receiving(roomLens to fakeRoom)
         returning(CREATED)
