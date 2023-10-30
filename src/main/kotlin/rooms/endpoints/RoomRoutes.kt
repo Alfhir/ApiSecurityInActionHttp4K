@@ -35,7 +35,6 @@ val fakeRoom = Room(
 fun getAllRooms(): ContractRoute = "/rooms/" meta {
     description = "This is an unsecured route to get all rooms."
     summary = "Gets all rooms."
-    security = NoSecurity
     tags += Tag("Room operations")
     produces += APPLICATION_JSON
     returning(OK, roomLens to fakeRoom)
@@ -49,7 +48,6 @@ fun createRoom(): ContractRoute {
     val spec = "/rooms" meta {
         description = "This is an unsecured route to create a room."
         summary = "Creates a room."
-        security = NoSecurity
         tags += Tag("Room operations")
         consumes += APPLICATION_JSON
         receiving(roomLens to fakeRoom)
