@@ -17,8 +17,8 @@ fun GetRooms(roomRepo: RoomRepo): ContractRoute = "/rooms/" meta {
     tags += Tag("Room operations")
     produces += ContentType.APPLICATION_JSON
     returning(Status.OK, roomDTOLens to fakeRoom)
-} bindContract GET to { req: Request -> handler(req, roomRepo) }
+} bindContract GET to { req: Request -> getHandler(req, roomRepo) }
 
-fun handler(it: Request, roomRepo: RoomRepo): Response =
+fun getHandler(it: Request, roomRepo: RoomRepo): Response =
     Response(Status.OK).with(roomDTOLens of roomRepo.rooms().first())
 

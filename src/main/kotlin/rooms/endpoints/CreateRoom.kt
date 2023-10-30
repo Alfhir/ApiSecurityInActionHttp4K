@@ -7,23 +7,21 @@ import org.http4k.contract.meta
 import org.http4k.core.*
 import rooms.ports.RoomRepo
 import rooms.roomDTOLens
-import roomsFake
 
 
-fun CreateRoom(rooms: RoomRepo): ContractRoute {
-    val spec = "/rooms" meta {
+fun CreateRoom(roomRepo: RoomRepo): ContractRoute = "/rooms" meta {
         description = "This is an unsecured route to create a room."
         summary = "Creates a room."
         tags += Tag("Room operations")
         consumes += ContentType.APPLICATION_JSON
         receiving(roomDTOLens to fakeRoom)
         returning(Status.CREATED)
-    } bindContract Method.POST
+    } bindContract Method.POST to  { req: Request -> createHandler(req, roomRepo) }
 
-    fun createRoomHandler(rooms: RoomRepo): HttpHandler = { _: Request ->
-        Response(Status.CREATED).header("Location", "http://fake-url.com/fake-path/fake-id")
+    fun createHandler(request: Request, roomRepo: RoomRepo): Response {
+        val returnedID = roomRepo.createRoom(
+            roomDTOLens(request)
+        )
+        return Response(Status.CREATED).header("Location", "http://fake-url.com/fake-rooms-path/$returnedID")
     }
 
-    return spec to createRoomHandler(rooms)
-
-}
