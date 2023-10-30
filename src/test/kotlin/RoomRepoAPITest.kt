@@ -13,10 +13,9 @@ import org.http4k.hamkrest.hasStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import rooms.RoomsApi
-import rooms.endpoints.fakeRoom
-import rooms.endpoints.roomDTOLens
+import rooms.roomDTOLens
 
-class RoomsAPITest {
+class RoomRepoAPITest {
 
     private val unsecuredApp = RoomsApi()
 

@@ -1,0 +1,1 @@
+//TODO This package is for production adapters, testing adapters should go to test fixtures source set
