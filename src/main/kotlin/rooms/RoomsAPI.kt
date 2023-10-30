@@ -19,6 +19,8 @@ import rooms.endpoints.getAllRooms
 // If you want to view the API on another origin like https://www.http4k.org/openapi3/ you need a Cors-policy
  fun veryUnsafeCorsFilter() = ServerFilters.Cors(CorsPolicy.UnsafeGlobalPermissive.copy(headers = listOf("*")))
 
+// API classes usually take env, clock, random, handlers for using fakes (In-memory implementations of repositories,
+// faked external services) wire everything together and apply logging and tracing functionality..
 fun RoomsApi(): RoutingHttpHandler = veryUnsafeCorsFilter().then(contract {
     renderer = OpenApi3(
         apiInfo = ApiInfo(

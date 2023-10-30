@@ -2,7 +2,7 @@ package rooms
 
 import monsters.Monster
 
-data class Room(
+data class RoomDTO(
     val dimensions: Triple<Int, Int, Int>,
     val sensoryImpression: String,
     val initialObservations: String,

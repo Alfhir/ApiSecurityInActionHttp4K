@@ -1,4 +1,3 @@
-import com.natpryce.hamkrest.allOf
 import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.containsSubstring
@@ -12,11 +11,10 @@ import org.http4k.hamkrest.hasBody
 import org.http4k.hamkrest.hasContentType
 import org.http4k.hamkrest.hasStatus
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import rooms.RoomsApi
 import rooms.endpoints.fakeRoom
-import rooms.endpoints.roomLens
+import rooms.endpoints.roomDTOLens
 
 class RoomsAPITest {
 
@@ -33,7 +31,7 @@ class RoomsAPITest {
     @Test
     fun `can get all rooms`() {
         val response = unsecuredApp(Request(GET, "/rooms"))
-        val roomFromResponse = roomLens(response)
+        val roomFromResponse = roomDTOLens(response)
         assertThat(
             response,
             hasStatus(Status.OK).and(hasContentType(APPLICATION_JSON))
@@ -43,7 +41,7 @@ class RoomsAPITest {
 
     @Test
     fun `can create rooms`() {
-        val request = Request(POST, "/rooms").with(roomLens of fakeRoom)
+        val request = Request(POST, "/rooms").with(roomDTOLens of fakeRoom)
         val response = unsecuredApp(request)
         val locationHeader = response.header("Location")
         assertThat(response, hasStatus(Status.CREATED))
