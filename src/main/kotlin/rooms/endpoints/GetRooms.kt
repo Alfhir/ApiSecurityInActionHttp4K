@@ -9,8 +9,6 @@ import org.http4k.core.Method.GET
 import rooms.ports.RoomRepo
 import rooms.roomDTOLens
 
-// The spec defined in code, is the same one that is used to generate the API documentation
-// and the same one used to validate incoming HTTP messages.
 fun GetRooms(roomRepo: RoomRepo): ContractRoute = "/rooms/" meta {
     description = "This is an unsecured route to get all rooms."
     summary = "Gets all rooms."
