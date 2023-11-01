@@ -17,12 +17,12 @@ import rooms.RoomsApi
 import rooms.roomDTOLens
 import java.time.Clock
 
-class RoomRepoAPITest {
+class RoomsPortAPITest {
 
     private val unsecuredApp = RoomsApi(
         clock = Clock.systemUTC(),
         events = AutoMarshallingEvents(Json),
-        roomRepo = roomsFake()
+        roomsPort = roomsFake()
     )
 
     @Test

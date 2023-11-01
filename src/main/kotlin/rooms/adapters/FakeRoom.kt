@@ -1,7 +1,7 @@
 import rooms.RoomDTO
-import rooms.ports.RoomRepo
+import rooms.ports.RoomsPort
 
-fun roomsFake() = object : RoomRepo {
+fun roomsFake() = object : RoomsPort {
 
     override fun rooms(): List<RoomDTO> = listOf(fakeRoom)
 

@@ -18,7 +18,7 @@ import org.http4k.format.Jackson
 import org.http4k.routing.RoutingHttpHandler
 import rooms.endpoints.CreateRoom
 import rooms.endpoints.GetRooms
-import rooms.ports.RoomRepo
+import rooms.ports.RoomsPort
 import java.time.Clock
 
 // If you want to view the API on another origin like https://www.http4k.org/openapi3/ you need a Cors-policy, dont use this in production.
@@ -26,7 +26,7 @@ import java.time.Clock
 
 fun RoomsApi(clock: Clock,
              events: Events,
-             roomRepo: RoomRepo
+             roomsPort: RoomsPort
 ): RoutingHttpHandler {
     val appEvents = AppEvents("rooms", clock, events)
 
@@ -45,8 +45,8 @@ fun RoomsApi(clock: Clock,
         )
         descriptionPath = "/api/v1/openapi3.json"
         security = NoSecurity
-        routes += GetRooms(roomRepo)
-        routes += CreateRoom(roomRepo)
+        routes += GetRooms(roomsPort)
+        routes += CreateRoom(roomsPort)
     })
 
     return IncomingHttp(
