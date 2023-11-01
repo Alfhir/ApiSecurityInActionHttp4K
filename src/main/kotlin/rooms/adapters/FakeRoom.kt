@@ -5,7 +5,7 @@ fun roomsFake() = object : RoomsPort {
 
     override fun rooms(): List<RoomDTO> = listOf(fakeRoom)
 
-    override fun createRoom(room: RoomDTO) {
+    override fun createRoom(room: RoomDTO): Nothing {
         TODO("Not yet implemented")
     }
 
